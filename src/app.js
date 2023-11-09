@@ -6,6 +6,12 @@ const suppliersRouter = require("./suppliers/suppliers.router");
 
 app.use(express.json());
 
+app.use("/api/ping", (_request, response, _next) => {
+  response.setHeader('Content-Type', 'application/json')
+  response.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate')
+  response.json({ data: "pong!" });
+});
+
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/suppliers", suppliersRouter);
